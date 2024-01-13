@@ -1,9 +1,6 @@
 package br.com.alura.screenmatch.main;
 
-import br.com.alura.screenmatch.model.DadosEpisodio;
-import br.com.alura.screenmatch.model.DadosSerie;
-import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.model.Episodio;
+import br.com.alura.screenmatch.model.*;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import ch.qos.logback.core.net.SyslogOutputStream;
@@ -31,7 +28,7 @@ public class Main {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar Series Buscadas
-                    
+                                        
                     0 - Sair                                 
                     """;
 
@@ -72,7 +69,7 @@ public class Main {
         return dados;
     }
 
-    private void buscarEpisodioPorSerie(){
+    private void buscarEpisodioPorSerie() {
         DadosSerie dadosSerie = getDadosSerie();
         List<DadosTemporada> temporadas = new ArrayList<>();
 
@@ -83,7 +80,18 @@ public class Main {
         }
         temporadas.forEach(System.out::println);
     }
-    private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+
+    private void listarSeriesBuscadas() {
+
+        List<Serie> series = new ArrayList<>();
+        series =  dadosSeries.stream()
+                        .map(dadosSerie -> new Serie(dadosSerie))
+                                .collect(Collectors.toList());
+
+        series.stream()
+                        .sorted(Comparator.comparing(Serie::getGenero))
+                                .forEach(System.out::println);
+        //dadosSeries.forEach(System.out::println);
+
     }
 }

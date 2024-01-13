@@ -51,14 +51,14 @@ public class Episodio {
     }
 
 
-    @Override
-    public String toString() {
-        return "Episodio{" +
-                "temporada=" + temporada +
-                ", titulo='" + titulo + '\'' +
-                ", numeroEpisodio=" + numeroEpisodio +
-                ", avaliacao=" + avaliacao +
-                ", dataLancamento=" + dataLancamento +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Episodio{" +
+//                "temporada=" + temporada +
+//                ", titulo='" + titulo + '\'' +
+//                ", numeroEpisodio=" + numeroEpisodio +
+//                ", avaliacao=" + avaliacao +
+//                ", dataLancamento=" + dataLancamento +
+//                '}';
+//    }
 }
