@@ -1,6 +1,7 @@
 package br.com.alura.screenmatch.model;
 
 
+import br.com.alura.screenmatch.service.ConsultaChatGPT;
 import lombok.Data;
 import lombok.ToString;
 
@@ -21,9 +22,9 @@ public class Serie {
         this.totalTemporadas = dadosSerie.totalTemporadas();
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.poster = dadosSerie.poster();
-        this.sinopse = dadosSerie.sinopse();
         this.atores = dadosSerie.atores();
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
+        this.sinopse = ConsultaChatGPT.obterTraducao(dadosSerie.sinopse()).trim();
     }
 
     @Override
