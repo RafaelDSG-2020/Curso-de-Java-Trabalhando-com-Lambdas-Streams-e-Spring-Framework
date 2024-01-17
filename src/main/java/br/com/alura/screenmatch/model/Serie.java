@@ -2,16 +2,26 @@ package br.com.alura.screenmatch.model;
 
 
 import br.com.alura.screenmatch.service.ConsultaChatGPT;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
 import java.util.OptionalDouble;
 @Data
 
+@Entity
+@Table(name = "serie")
+
 public class Serie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String titulo;
     private Integer totalTemporadas;
     private String atores;
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
     private String poster;
     private String sinopse;
