@@ -4,17 +4,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.zip.DataFormatException;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
-
-
-
+import org.hibernate.annotations.ManyToAny;
 
 
 @Data
 @ToString(of = {"temporada", "titulo", "numeroEpisodio", "avaliacao", "dataLancamento"}) // Especifique os campos a serem incluídos na representação
+
+@Entity
+@Table(name = "episodios")
 public class Episodio {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Integer temporada;
     private String titulo;
@@ -22,9 +28,9 @@ public class Episodio {
     private Double avaliacao;
     private LocalDate dataLancamento;
 
-//    public LocalDate getDataLancamento() {
-//        return dataLancamento;
-//    }
+    @ManyToAny
+    private Serie serie;
+
 
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio)
     {
