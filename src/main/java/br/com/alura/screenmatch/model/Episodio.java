@@ -52,9 +52,7 @@ public class Episodio {
 
     }
 
-    public Episodio() {
-
-    }
+    public Episodio() {}
 
 
 //    @Override
