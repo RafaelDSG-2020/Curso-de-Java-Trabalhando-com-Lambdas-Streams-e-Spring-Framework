@@ -1,5 +1,5 @@
 
-# Curso de Java: Trabalhando com Lambdas, Streams e Spring Framework
+# Curso de Java: Trabalhando com Lambdas, Streams e Spring Framework e Implementando Banco de Dados e Consumido API do Chatgpt para traduzir Sinopse
 
 ## Descrição
 
