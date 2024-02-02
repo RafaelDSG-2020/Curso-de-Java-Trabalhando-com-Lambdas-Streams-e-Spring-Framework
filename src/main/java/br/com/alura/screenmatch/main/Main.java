@@ -38,6 +38,9 @@ public class Main {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar Series Buscadas
+                    4 - Buscar Serie por Titulo
+                    5 - Buscar Series por Ator
+                    6 - Top 5 Series
                                         
                     0 - Sair                                 
                     """;
@@ -56,6 +59,14 @@ public class Main {
                 case 3:
                     listarSeriesBuscadas();
                     break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriesPorAtor();
+                    break;
+                case 6:
+                    listarAsCincoMelhoresSeries();
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -64,6 +75,7 @@ public class Main {
             }
         }
     }
+
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
@@ -87,9 +99,11 @@ public class Main {
         System.out.println("Escolha uma Serie Pelo Nome: ");
         String nomeSerie = leitura.nextLine();
 
-        Optional<Serie> serie = series.stream()
-                .filter(series -> series.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
-                .findFirst();
+        Optional<Serie> serie = repository.findByTituloContainingIgnoreCase(nomeSerie);
+
+//        Optional<Serie> serie = series.stream()
+//                .filter(series -> series.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
+//                .findFirst();
 
         if(serie.isPresent()) {
 
@@ -128,4 +142,34 @@ public class Main {
         //dadosSeries.forEach(System.out::println);
 
     }
+    private void buscarSeriePorTitulo() {
+        System.out.println("Escolha uma Serie Pelo Nome: ");
+        String nomeSerie = leitura.nextLine();
+        Optional<Serie> serieBuscada = repository.findByTituloContainingIgnoreCase(nomeSerie);
+
+        if (serieBuscada.isPresent()){
+            System.out.println("Dados da série: " + serieBuscada.get());
+
+
+        }else {
+            System.out.println("Serie Não Encontrada!");
+        }
+
+    }
+    private void buscarSeriesPorAtor() {
+        System.out.println("Pesquise Pelo Nome do Ator: ");
+        String nomeAtor = leitura.nextLine();
+        System.out.println("Avaliações a partir de qual valor? : ");
+        Double avaliacao = leitura.nextDouble();
+        List<Serie> seriesEncontradasFeitasPorAtor = repository.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAtor,avaliacao);
+        seriesEncontradasFeitasPorAtor.forEach(serie ->
+                System.out.println(serie.getTitulo() + "Avalaição: " +serie.getAvaliacao()));
+    }
+
+    private void listarAsCincoMelhoresSeries() {
+        List<Serie> seriesTop = repository.findTop5ByOrderByAvaliacaoDesc();
+        seriesTop.forEach(serie ->
+                System.out.println(serie.getTitulo() + " |-> Avalaição: " +serie.getAvaliacao()));
+    }
+
 }

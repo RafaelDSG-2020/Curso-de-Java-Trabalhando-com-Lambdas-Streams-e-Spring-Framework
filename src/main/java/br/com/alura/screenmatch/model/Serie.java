@@ -4,6 +4,7 @@ package br.com.alura.screenmatch.model;
 import br.com.alura.screenmatch.service.ConsultaChatGPT;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Serie {
     private String sinopse;
     private Double avaliacao;
 
-    @OneToMany(mappedBy = "serie" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "serie" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Episodio> episodios = new ArrayList<>();
 
     public Serie() {}
@@ -53,7 +54,12 @@ public class Serie {
                 ", genero=" + genero +
                 ", poster='" + poster + '\'' +
                 ", sinopse='" + sinopse + '\'' +
-                ", avaliacao=" + avaliacao
-                ;
+                ", avaliacao=" + avaliacao+ '\'' +
+                ", episodios=" + episodios ;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(episodio -> episodio.setSerie(this));
+        this.episodios = episodios;
     }
 }
