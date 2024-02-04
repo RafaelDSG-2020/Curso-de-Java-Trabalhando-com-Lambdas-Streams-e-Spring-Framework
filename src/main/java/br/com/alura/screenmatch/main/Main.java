@@ -5,6 +5,7 @@ import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import ch.qos.logback.core.net.SyslogOutputStream;
+import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DecimalFormat;
@@ -41,6 +42,7 @@ public class Main {
                     4 - Buscar Serie por Titulo
                     5 - Buscar Series por Ator
                     6 - Top 5 Series
+                    7 - Buscando Series por Categoria
                                         
                     0 - Sair                                 
                     """;
@@ -67,6 +69,13 @@ public class Main {
                     break;
                 case 6:
                     listarAsCincoMelhoresSeries();
+                    break;
+                case 7:
+                    buscandoSeriesPorCategoria();
+                    break;
+                case 8:
+                    buscandoPorMaxTemporadaeAvaliacao();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -75,6 +84,7 @@ public class Main {
             }
         }
     }
+
 
 
     private void buscarSerieWeb() {
@@ -170,6 +180,28 @@ public class Main {
         List<Serie> seriesTop = repository.findTop5ByOrderByAvaliacaoDesc();
         seriesTop.forEach(serie ->
                 System.out.println(serie.getTitulo() + " |-> Avalaição: " +serie.getAvaliacao()));
+    }
+    private void buscandoSeriesPorCategoria() {
+
+        System.out.println("Exemplos de Categoria: ");
+        Categoria[] genero1 = Categoria.values();
+        Arrays.stream(genero1).forEach(System.out::println);
+        System.out.println("Digite o Genero das Series que Deseja buscar: ");
+        String nomeGenero = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
+        System.out.println("Series da Categoria -> " + nomeGenero);
+        seriesPorCategoria.forEach(System.out::println);
+
+    }
+    private void buscandoPorMaxTemporadaeAvaliacao() {
+        System.out.println("Maxima top temporadas e maxima avaliação");
+        int temporada = leitura.nextInt();
+        Double avaliacao = leitura.nextDouble();
+
+        //List<Serie> serieTemp = repository.findSeriesWithMaxTotalTemporadaAndTopAvaliacaoDesc(temporada,avaliacao);
+
+       // serieTemp.forEach(System.out::println);
     }
 
 }
