@@ -43,6 +43,7 @@ public class Main {
                     5 - Buscar Series por Ator
                     6 - Top 5 Series
                     7 - Buscando Series por Categoria
+                    8-  Buscando Series por Quantidade Maximas de Temporadas e Valor Minimo de Avaliação 
                                         
                     0 - Sair                                 
                     """;
@@ -191,17 +192,19 @@ public class Main {
         Categoria categoria = Categoria.fromPortugues(nomeGenero);
         List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
         System.out.println("Series da Categoria -> " + nomeGenero);
-        seriesPorCategoria.forEach(System.out::println);
+        seriesPorCategoria.forEach(serie ->
+                System.out.println(serie.getTitulo() + " |-> Avalaição: " +serie.getAvaliacao()));
 
     }
     private void buscandoPorMaxTemporadaeAvaliacao() {
-        System.out.println("Maxima top temporadas e maxima avaliação");
+        System.out.println("Maxima top Temporadas e Minimo de Avaliação");
         int temporada = leitura.nextInt();
-        Double avaliacao = leitura.nextDouble();
+        double avaliacao = leitura.nextDouble();
 
-        //List<Serie> serieTemp = repository.findSeriesWithMaxTotalTemporadaAndTopAvaliacaoDesc(temporada,avaliacao);
+        List<Serie> serieTemp = repository.seriesPorTemporadaEAvaliacao(temporada,avaliacao);
+        serieTemp.forEach(serie ->
+                System.out.println(serie.getTitulo() + " Total Temporadas: "+ serie.getTotalTemporadas() + " |-> Avalaição: " +serie.getAvaliacao()));
 
-       // serieTemp.forEach(System.out::println);
     }
 
 }
