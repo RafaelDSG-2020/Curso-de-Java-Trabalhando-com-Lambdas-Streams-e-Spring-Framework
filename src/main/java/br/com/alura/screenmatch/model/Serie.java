@@ -63,39 +63,5 @@ public class Serie {
         this.episodios = episodios;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public Integer getTotalTemporadas() {
-        return totalTemporadas;
-    }
-
-    public String getAtores() {
-        return atores;
-    }
-
-    public Categoria getGenero() {
-        return genero;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public String getSinopse() {
-        return sinopse;
-    }
-
-    public Double getAvaliacao() {
-        return avaliacao;
-    }
-
-    public List<Episodio> getEpisodios() {
-        return episodios;
-    }
 }

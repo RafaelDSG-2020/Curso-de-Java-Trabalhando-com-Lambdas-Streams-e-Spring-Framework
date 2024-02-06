@@ -67,31 +67,4 @@ public class Episodio {
 //    }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getTemporada() {
-        return temporada;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public Integer getNumeroEpisodio() {
-        return numeroEpisodio;
-    }
-
-    public Double getAvaliacao() {
-        return avaliacao;
-    }
-
-    public LocalDate getDataLancamento() {
-        return dataLancamento;
-    }
-
-    public Serie getSerie() {
-        return serie;
-    }
 }
