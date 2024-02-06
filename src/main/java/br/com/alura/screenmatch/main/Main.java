@@ -43,7 +43,8 @@ public class Main {
                     5 - Buscar Series por Ator
                     6 - Top 5 Series
                     7 - Buscando Series por Categoria
-                    8-  Buscando Series por Quantidade Maximas de Temporadas e Valor Minimo de Avaliação 
+                    8 - Buscando Series por Quantidade Maximas de Temporadas e Valor Minimo de Avaliação
+                    9 - Buscando Epsodios por Trecho
                                         
                     0 - Sair                                 
                     """;
@@ -77,6 +78,9 @@ public class Main {
                 case 8:
                     buscandoPorMaxTemporadaeAvaliacao();
                     break;
+                case 9:
+                    buscarEpisodioPorTrecho();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -85,6 +89,7 @@ public class Main {
             }
         }
     }
+
 
 
 
@@ -204,6 +209,20 @@ public class Main {
         List<Serie> serieTemp = repository.seriesPorTemporadaEAvaliacao(temporada,avaliacao);
         serieTemp.forEach(serie ->
                 System.out.println(serie.getTitulo() + " Total Temporadas: "+ serie.getTotalTemporadas() + " |-> Avalaição: " +serie.getAvaliacao()));
+
+    }
+
+    private void buscarEpisodioPorTrecho() {
+
+        System.out.println("Qual o nome do episódio para a busca? ");
+        String trechoEpisodio = leitura.nextLine();
+
+        List<Episodio> epsodiosEncontrados = repository.episodiosPorTrecho(trechoEpisodio);
+
+        epsodiosEncontrados.forEach(episodio ->
+                System.out.printf("Serie: %s Temporada %s - Episodio %s \n",
+                episodio.getSerie().getTitulo(), episodio.getTemporada(),episodio.getNumeroEpisodio(),
+                episodio.getTitulo()));
 
     }
 
